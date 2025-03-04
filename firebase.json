@@ -1,0 +1,21 @@
+{
+  "flutter": {
+    "platforms": {
+      "web": {
+        "default": {
+          "projectId": "aregenkibet",
+          "appId": "1:844190609385:web:ce800c025f779652462578",
+          "fileOutput": "web/firebase-config.js"
+        },
+        "dart": {
+          "lib/firebase_options.dart": {
+            "projectId": "aregenkibet",
+            "configurations": {
+              "web": "1:844190609385:web:e99ac295e7d266cb462578"
+            }
+          }
+        }
+      }
+    }
+  }
+}
