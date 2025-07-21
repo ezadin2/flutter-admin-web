@@ -1,0 +1,49 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "aregenkibet",
+          "appId": "1:844190609385:android:4ce725e99b6b1e1c462578",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "aregenkibet",
+          "configurations": {
+            "android": "1:844190609385:android:4ce725e99b6b1e1c462578",
+            "ios": "1:844190609385:ios:89caaede4ac7cd30462578",
+            "web": "1:844190609385:web:5553f0eb18a1801f462578"
+          }
+        }
+      }
+    }
+  },
+  "emulators": {
+    "dataconnect": {
+      "dataDir": "dataconnect/.dataconnect/pgliteData"
+    }
+  },
+  "dataconnect": {
+    "source": "dataconnect"
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "database": {
+    "rules": "database.rules.json"
+  }
+}

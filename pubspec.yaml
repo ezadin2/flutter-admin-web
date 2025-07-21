@@ -1,0 +1,88 @@
+name: ecommerce_admin_panel
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Utility Packages
+  intl: ^0.20.2
+  lottie: ^3.1.3
+  shimmer: ^3.0.0
+  clipboard: ^0.1.3
+  image_picker: ^1.1.0
+  url_launcher: ^6.2.6
+  flutter_typeahead: ^5.2.0
+  connectivity_plus: ^6.1.3
+  multi_select_flutter: ^4.1.3
+  cached_network_image: ^3.3.0
+  flutter_native_splash: ^2.4.0
+  smooth_page_indicator: ^1.1.0
+
+  # Web Specific
+  web: ^1.1.1
+  http: ^1.3.0
+  html: ^0.15.5
+  fl_chart: ^0.70.2
+  data_table_2: ^2.5.18
+  url_strategy: ^0.3.0
+  universal_html: ^2.2.4
+
+  # Icons
+  iconsax: ^0.0.8
+  cupertino_icons: ^1.0.8
+
+  # State Management
+  get: ^4.7.2
+  get_storage: ^2.1.1
+
+  # Firebase
+  firebase_core: ^3.12.1
+  firebase_auth: ^5.5.1
+  cloud_firestore: ^5.6.5
+  firebase_storage: ^12.4.4
+  flutter_dropzone: ^4.2.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+
+flutter:
+  uses-material-design: true
+
+
+  #--------------- LOCAL ASSETS ------------------#
+  assets:
+    - assets/logos/
+    - assets/images/content/
+    - assets/images/animations/
+    - assets/icons/payment_methods/
+
+  #--------------- LOCAL FONTS ------------------#
+  fonts:
+    - family: Urbanist
+      fonts:
+        - asset: assets/fonts/urbanist/Urbanist-Light.ttf
+          weight: 300
+        - asset: assets/fonts/urbanist/Urbanist-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/urbanist/Urbanist-Italic.ttf
+          style: italic
+        - asset: assets/fonts/urbanist/Urbanist-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/urbanist/Urbanist-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/urbanist/Urbanist-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/urbanist/Urbanist-Bold.ttf
+          weight: 800

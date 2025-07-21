@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "844190609385",
+    "project_id": "aregenkibet",
+    "storage_bucket": "aregenkibet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844190609385:android:4ce725e99b6b1e1c462578",
+        "android_client_info": {
+          "package_name": "com.examp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844190609385-58b1fk77o1m6kmtc860mh22vpc5utbp1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.examp",
+            "certificate_hash": "f9c19052fbfb3d9a8e8f3a595da9ced008990fdb"
+          }
+        },
+        {
+          "client_id": "844190609385-h7jc5hf0lpr5hke0j8hohb7egdc2vvh7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjiQDu2k98pYgSmYmojoO8wo6s29N6am8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844190609385-h7jc5hf0lpr5hke0j8hohb7egdc2vvh7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "844190609385-uaop1ms5d6gge4bl2f7immd5gf9rk2k7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.newpopop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
