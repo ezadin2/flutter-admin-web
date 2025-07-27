@@ -137,20 +137,11 @@ class TSalesGraph extends StatelessWidget {
         ),
       ),
       leftTitles: AxisTitles(
-        sideTitles: SideTitles(
-          showTitles: true,
-          interval: _calculateInterval(sales),
-          reservedSize: 40,
-          getTitlesWidget: (value, meta) {
-            return Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Text(value.toInt().toString(), style: const TextStyle(fontSize: 10)),
-            );
-          },
-        ),
+        sideTitles: SideTitles(showTitles: false), // 👈 Hides left Y-axis labels
       ),
       rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
       topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
     );
   }
+
 }

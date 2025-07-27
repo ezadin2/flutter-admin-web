@@ -18,13 +18,12 @@ class OrderRepository extends GetxController {
   // Firebase Firestore instance
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-
+  /// Fetches all orders for a specific user from the main Orders collection
   Future<List<OrderModel>> getAllOrdersForUser(String userId) async {
     try {
       final querySnapshot = await _db
-          .collection("Users")
-          .doc(userId)
           .collection("Orders")
+          .where('userId', isEqualTo: userId)
           .orderBy('orderDate', descending: true)
           .get();
 
@@ -37,14 +36,13 @@ class OrderRepository extends GetxController {
       throw 'Failed to fetch user orders: ${e.toString()}';
     }
   }
-  /// Fetches all orders from all users
+
+  /// Fetches all orders from the main Orders collection
   Future<List<OrderModel>> getAllOrders() async {
     try {
       debugPrint('Starting to fetch all orders...');
 
-      // Option 1: Use collection group query if possible (faster)
-      // This requires all orders to be in subcollections named "Orders"
-      final ordersSnapshot = await _db.collectionGroup('Orders')
+      final ordersSnapshot = await _db.collection('Orders')
           .orderBy('orderDate', descending: true)
           .limit(1000) // Set a reasonable limit
           .get();
@@ -74,16 +72,13 @@ class OrderRepository extends GetxController {
     }
   }
 
-  /// Adds a new order to a user's orders collection
-  Future<void> addOrder(String userId, OrderModel order) async {
+  /// Adds a new order to the main Orders collection
+  Future<String> addOrder(OrderModel order) async {
     try {
-      debugPrint('Adding new order for user $userId');
-      await _db
-          .collection("Users")
-          .doc(userId)
-          .collection("Orders")
-          .add(order.toJson());
-      debugPrint('Order added successfully');
+      debugPrint('Adding new order to main Orders collection');
+      final docRef = await _db.collection("Orders").add(order.toJson());
+      debugPrint('Order added successfully with ID: ${docRef.id}');
+      return docRef.id;
     } on FirebaseException catch (e) {
       debugPrint('Firebase error adding order: ${e.code} - ${e.message}');
       throw TFirebaseException(e.code).message;
@@ -99,16 +94,11 @@ class OrderRepository extends GetxController {
     }
   }
 
-  /// Deletes an order from a user's orders collection
-  Future<void> deleteOrder(String userId, String orderId) async {
+  /// Deletes an order from the main Orders collection
+  Future<void> deleteOrder(String orderId) async {
     try {
-      debugPrint('Deleting order $orderId for user $userId');
-      await _db
-          .collection("Users")
-          .doc(userId)
-          .collection("Orders")
-          .doc(orderId)
-          .delete();
+      debugPrint('Deleting order $orderId from main Orders collection');
+      await _db.collection("Orders").doc(orderId).delete();
       debugPrint('Order deleted successfully');
     } on FirebaseException catch (e) {
       debugPrint('Firebase error deleting order: ${e.code} - ${e.message}');
@@ -125,19 +115,14 @@ class OrderRepository extends GetxController {
     }
   }
 
-  Future<void> updateOrderStatus(String userId, String orderId, String status) async {
+  /// Updates order status in the main Orders collection
+  Future<void> updateOrderStatus(String orderId, String status) async {
     try {
-      debugPrint('Updating order $orderId for user $userId to status: $status');
+      debugPrint('Updating order $orderId to status: $status');
 
-      if (userId.isEmpty) throw Exception('User ID cannot be empty');
       if (orderId.isEmpty) throw Exception('Order ID cannot be empty');
 
-      await _db
-          .collection("Users")
-          .doc(userId)
-          .collection("Orders")
-          .doc(orderId)
-          .update({
+      await _db.collection("Orders").doc(orderId).update({
         'status': 'OrderStatus.$status',
         'updatedAt': FieldValue.serverTimestamp()
       });
@@ -152,19 +137,14 @@ class OrderRepository extends GetxController {
     }
   }
 
-  /// Updates specific fields of an order
-  Future<void> updateOrderSpecificValue(String userId, String orderId, Map<String, dynamic> data) async {
+  /// Updates specific fields of an order in the main Orders collection
+  Future<void> updateOrderSpecificValue(String orderId, Map<String, dynamic> data) async {
     try {
-      debugPrint('Updating order $orderId for user $userId with data: $data');
+      debugPrint('Updating order $orderId with data: $data');
 
       data['updatedAt'] = FieldValue.serverTimestamp();
 
-      await _db
-          .collection("Users")
-          .doc(userId)
-          .collection("Orders")
-          .doc(orderId)
-          .update(data);
+      await _db.collection("Orders").doc(orderId).update(data);
 
       debugPrint('Order updated successfully');
     } on FirebaseException catch (e) {
@@ -180,9 +160,25 @@ class OrderRepository extends GetxController {
       debugPrint('Unexpected error updating order: $e');
       throw Exception("Failed to update order: ${e.toString()}");
     }
-
   }
 
+  /// Fetches a single order by its ID
+  Future<OrderModel> getOrderById(String orderId) async {
+    try {
+      debugPrint('Fetching order with ID: $orderId');
+      final docSnapshot = await _db.collection("Orders").doc(orderId).get();
 
+      if (!docSnapshot.exists) {
+        throw Exception('Order not found');
+      }
 
+      return OrderModel.fromSnapshot(docSnapshot);
+    } on FirebaseException catch (e) {
+      debugPrint('Firebase error fetching order: ${e.code} - ${e.message}');
+      throw TFirebaseException(e.code).message;
+    } catch (e) {
+      debugPrint('Error fetching order: $e');
+      throw Exception("Failed to fetch order: ${e.toString()}");
+    }
+  }
 }

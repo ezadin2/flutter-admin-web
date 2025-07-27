@@ -62,6 +62,7 @@ class OrderModel {
         return status.toString().split('.').last.capitalizeFirst!;
     }
   }
+
   String get formattedOrderDate => THelperFunctions.getFormattedDate(orderDate);
 
   static OrderModel empty() {
@@ -112,6 +113,7 @@ class OrderModel {
       'address': address?.toJson(),
     };
   }
+
   factory OrderModel.fromSnapshot(DocumentSnapshot snapshot) {
     try {
       final data = snapshot.data() as Map<String, dynamic>? ?? {};
@@ -143,7 +145,7 @@ class OrderModel {
     }
   }
 
-// Helper methods for parsing
+  // Helper methods for parsing
   static OrderStatus _parseOrderStatus(dynamic status) {
     try {
       if (status is String) {
